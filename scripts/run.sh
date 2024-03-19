@@ -1,8 +1,8 @@
-#!bin/bash
+#!bin/bash 
 
 # Set the default shell to zsh
 
-# see if python and pip are installed, else thro error 
+# see if python and pip are installed, else thro error
 if ! command -v python3 &> /dev/null
 then
     echo "Python is not installed"
@@ -15,5 +15,6 @@ then
     exit
 fi
 
-# Install the required packages
-pip install -r requirements.txt
+
+# run the application
+python3 main.py convert 
