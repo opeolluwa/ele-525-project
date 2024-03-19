@@ -45,11 +45,11 @@ command to run if program contains helper info
 
 ## Authors
 - [Adeoye Adefemi]()
-- [onabajo Peter]()
+- [onabanjo Peter]()
 - [Adeniyi ImisiOluwa]()
 - [Olorunnishola Taiwo]()
 - [Olorunnishola Kehide]()
-- [Victor]()
+- [Ogundare Victor]()
 
 
 
