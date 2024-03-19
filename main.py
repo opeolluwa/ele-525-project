@@ -6,43 +6,64 @@ from rich import print as rprint
 
 app = typer.Typer()
 
-def cartesian_to_polar(x, y):
-    r = math.sqrt(x**2 + y**2)
-    theta = math.atan2(y, x)
-    return r, theta
+# Polar to Cylindrical
+def polar_to_cylindrical(rho, theta, z):
+    x = rho * math.cos(theta)
+    y = rho * math.sin(theta)
+    return x, y, z
 
-def cartesian_to_cylindrical(x, y, z):
-    r = math.sqrt(x**2 + y**2)
-    theta = math.atan2(y, x)
-    return r, theta, z
+# Polar to Rectangular
+def polar_to_rectangular(rho, theta):
+    x = rho * math.cos(theta)
+    y = rho * math.sin(theta)
+    return x, y
 
-def cartesian_to_spherical(x, y, z):
-    r = math.sqrt(x**2 + y**2 + z**2)
-    theta = math.atan2(y, x)
-    phi = math.acos(z/r)
-    return r, theta, phi
+# Polar to Spherical
+def polar_to_spherical(rho, theta, phi):
+    x = rho * math.sin(phi) * math.cos(theta)
+    y = rho * math.sin(phi) * math.sin(theta)
+    z = rho * math.cos(phi)
+    return x, y, z
 
-    
-def cartesian_to_cylindrical(x, y, z):
-    r = math.sqrt(x**2 + y**2)
+# Rectangular to Spherical
+def rectangular_to_spherical(x, y, z):
+    rho = math.sqrt(x**2 + y**2 + z**2)
     theta = math.atan2(y, x)
-    return r, theta, z
+    phi = math.acos(z / rho)
+    return rho, theta, phi
+
+# Rectangular to Cylindrical
+def rectangular_to_cylindrical(x, y, z):
+    rho = math.sqrt(x**2 + y**2)
+    theta = math.atan2(y, x)
+    return rho, theta, z
+
+# Cylindrical to Rectangular
+def cylindrical_to_rectangular(rho, theta, z):
+    x = rho * math.cos(theta)
+    y = rho * math.sin(theta)
+    return x, y, z
+
+# Cylindrical to Spherical
+def cylindrical_to_spherical(rho, theta, z):
+    return polar_to_spherical(rho, theta, z)
 
 
 prompt_coordinate = [
    {
     'type': 'input',
     'name': 'base',
-    'message': 'Enter base coordinate\n1: for polar,\n2: for cylindrical,\n3: for spherical'
+    'message': 'Enter base coordinate\n1: for polar,\n2: for cylindrical,\n3: for spherical:\t'
    },
    {
     'type': 'input',
     'name': 'target',
-   'message': '\nEnter target coordinate\n: 1: for polar\n, 2: for cylindrical,\n3: for spherical'
+   'message': 'Enter target coordinate:\n1: for polar\n,2: for cylindrical,\n3: for spherical:\t'
    },
 ]
 
 
+# prompt for cartesian input
 prompt_cartesian_input = [
     {
         'type': 'input',
@@ -61,60 +82,99 @@ prompt_cartesian_input = [
     }
 ]
 
+# prompt for polar input
+prompt_polar_input = [
+    {
+        'type': 'input',
+        'name': 'rho',
+        'message': 'Enter rho coordinate'
+    },
+    {
+        'type': 'input',
+        'name': 'theta',
+        'message': 'Enter theta coordinate'
+    },
+    {
+        'type': 'input',
+        'name': 'z',
+        'message': 'Enter z coordinate'
+    }
+]
+
+
+# prompt for cylindrical input
+prompt_cylindrical_input = [
+    {
+        'type': 'input',
+        'name': 'rho',
+        'message': 'Enter rho coordinate'
+    },
+    {
+        'type': 'input',
+        'name': 'theta',
+        'message': 'Enter theta coordinate'
+    },
+    {
+        'type': 'input',
+        'name': 'z',
+        'message': 'Enter z coordinate'
+    }
+]
+
+
+# a function that does the conversions
+def convert(base, target, coordinates):
+    if base == '1' and target == '2':
+        x, y, z = polar_to_cylindrical(coordinates['rho'], coordinates['theta'], coordinates['z'])
+        return x, y, z
+    elif base == '1' and target == '3':
+        x, y, z = polar_to_spherical(coordinates['rho'], coordinates['theta'], coordinates['z'])
+        return x, y, z
+    elif base == '2' and target == '1':
+        x, y, z = cylindrical_to_rectangular(coordinates['rho'], coordinates['theta'], coordinates['z'])
+        return x, y, z
+    elif base == '2' and target == '3':
+        x, y, z = cylindrical_to_spherical(coordinates['rho'], coordinates['theta'], coordinates['z'])
+        return x, y, z
+    elif base == '3' and target == '1':
+        x, y, z = spherical_to_polar(coordinates['rho'], coordinates['theta'], coordinates['z'])
+        return x, y, z
+    elif base == '3' and target == '2':
+        x, y, z = spherical_to_cylindrical(coordinates['rho'], coordinates['theta'], coordinates['z'])
+        return x, y, z
+    else:
+        return None
+
 
 # validate the input
 @app.command("convert")
 def run():
     answers = prompt(prompt_coordinate)
-    print(answers)
-    if answers['base'] == '1' and answers['target'] == '2':
-        # accept input coordinates x, y and z from user
-        coordinates = prompt(prompt_cartesian_input)
-        x = int(coordinates['x'])
-        y = int(coordinates['y'])
-        z = int(coordinates['z'])
-        # compute from cartesian to cylindrical
-        r_polar, theta_polar = cartesian_to_polar(x, y)
-        print("Cartesian to Polar:")
-        print("Cartesian Coordinates:", (x, y))
-        print("Polar Coordinates:", (r_polar, theta_polar))
+ 
 
-    elif answers['base'] == '1' and answers['target'] == '3':
-        # accept input coordinates x, y and z from user
-        coordinates = prompt(prompt_cartesian_input)
-        x = int(coordinates['x'])
-        y = int(coordinates['y'])
-        z = int(coordinates['z'])
-        # compute from cartesian to cylindrical
-        r_polar, theta_polar = cartesian_to_polar(x, y)
-        print("Cartesian to Polar:")
-        print("Cartesian Coordinates:", (x, y))
-        print("Polar Coordinates:", (r_polar, theta_polar))
-    
-    elif answers['base'] == '2' and answers['target'] == '1':
-        # accept input coordinates x, y and z from user
-        coordinates = prompt(prompt_cartesian_input)
-        x = int(coordinates['x'])
-        y = int(coordinates['y'])
-        z = int(coordinates['z'])
-        # compute from cartesian to cylindrical
-        r_cylindrical, theta_cylindrical, z_cylindrical = cartesian_to_cylindrical(x, y, z)
-        print("\nCartesian to Cylindrical:")
-        print("Cartesian Coordinates:", (x, y, z))
-        print("Cylindrical Coordinates:", (r_cylindrical, theta_cylindrical, z_cylindrical))
+    # if the input is greater than 3 
+    if int(answers['base']) > 3 or int(answers['target']) > 3:
+        print("Invalid input")
+        return
 
+     # if base and targhet are the same, then no need to convert
+    elif answers['base'] == answers['target']:
+        print("No need to convert")
+        return
 
-    elif answers['base'] == '2' and answers['target'] == '3':
-        # accept input coordinates x, y and z from user
-        coordinates = prompt(prompt_cartesian_input)
-        x = int(coordinates['x'])
-        y = int(coordinates['y'])
-        z = int(coordinates['z'])
-        # compute from cartesian to cylindrical
-        r_cylindrical, theta_cylindrical, z_cylindrical = cartesian_to_cylindrical(x, y, z)
-        print("\nCartesian to Cylindrical:")
-        print("Cartesian Coordinates:", (x, y, z))
-        print("Cylindrical Coordinates:", (r_cylindrical, theta_cylindrical, z_cylindrical))
+   #call on the converter 
+    else:
+        if answers['base'] == '1':
+            coordinates = prompt(prompt_polar_input)
+        elif answers['base'] == '2':
+            coordinates = prompt(prompt_cylindrical_input)
+        elif answers['base'] == '3':
+            coordinates = prompt(prompt_cartesian_input)
+
+        x, y, z = convert(answers['base'], answers['target'], coordinates)
+        print(x, y, z)
+        return x, y, z
+        
 
 
 if __name__ == "__main__":
