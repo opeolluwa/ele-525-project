@@ -36,7 +36,7 @@ A program that works on the conversion from one coordinate system to another coo
 
 ```
 pip install -r requirements.txt
-python3 main.py
+python3 main.py convert 
 ```
 
 ## Documentation
