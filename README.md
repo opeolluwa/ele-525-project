@@ -6,11 +6,7 @@
   - [Installing](#installing)
   - [Executing program](#executing-program)
 - [Documentation](#documentation)
-- [Help](#help)
-- [Authors](#authors)
-- [Version History](#version-history)
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 ## Description
 
@@ -26,16 +22,15 @@ A program that works on the conversion from one coordinate system to another coo
 
 ### Installing
 
-- How/where to download your program
-- Any modifications needed to be made to files/folders
-
+```
+pip install -r requirements.txt
+```
 ### Executing program
 
 - How to run the program
 - Step-by-step bullets
 
 ```
-pip install -r requirements.txt
 python3 main.py convert 
 ```
 
@@ -43,9 +38,6 @@ python3 main.py convert
 
 Describe any special instructions that are necessary to install a software package on your computer (if applicable).
 
-## Help
-
-Any advise for common problems or issues.
 
 ```
 command to run if program contains helper info
