@@ -31,7 +31,7 @@ pip install -r requirements.txt
 - Step-by-step bullets
 
 ```
-python3 main.py convert 
+make run
 ```
 
 ## Documentation

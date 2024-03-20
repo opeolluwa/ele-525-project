@@ -17,4 +17,4 @@ fi
 
 
 # run the application
-python3 main.py convert 
+/usr/bin/python3 /Users/USER/Desktop/dev/ele-525-project/main.py
