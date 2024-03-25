@@ -1,6 +1,7 @@
  # ELE 527 Project
 
 - [Description](#description)
+- [Authors](#authors)
 - [Getting Started](#getting-started)
   - [Dependencies](#dependencies)
   - [Installing](#installing)
@@ -11,6 +12,14 @@
 ## Description
 
 A program that works on the conversion from one coordinate system to another coordinate system using Python commands
+
+## Authors
+1.⁠ ⁠Adeoye Adefemi Opeoluwa 20181646
+2.⁠ ⁠Ogundare Victor Olaoluwa 20172709
+3.⁠ ⁠Onabanjo Peter Olamide 20183210
+4.⁠ ⁠Olorunnishola Kehinde  20181680
+5.⁠ ⁠Olorunnishola Taiwo  20181681
+6.⁠ ⁠Adeniyi Imisioluwa 20183115
 
 ## Getting Started
 
@@ -43,13 +52,7 @@ Describe any special instructions that are necessary to install a software packa
 command to run if program contains helper info
 ```
 
-## Authors
-- [Adeoye Adefemi]()
-- [onabanjo Peter]()
-- [Adeniyi ImisiOluwa]()
-- [Olorunnishola Taiwo]()
-- [Olorunnishola Kehide]()
-- [Ogundare Victor]()
+
 
 
 
