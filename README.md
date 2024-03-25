@@ -1,5 +1,6 @@
  # ELE 527 Project
 
+
 - [Description](#description)
 - [Authors](#authors)
 - [Getting Started](#getting-started)
@@ -8,6 +9,10 @@
   - [Executing program](#executing-program)
 - [Documentation](#documentation)
 - [License](#license)
+
+
+![demo](./demo.png)
+
 
 ## Description
 
